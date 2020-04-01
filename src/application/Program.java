@@ -13,21 +13,24 @@ public class Program {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
-		ChessMatch chessmatch = new ChessMatch();
+		ChessMatch chessMatch = new ChessMatch();
 		
 		while (true) {
 			try {
 				UI.clearScreaen();
-				UI.printBoard(chessmatch.getpieces());
+				UI.printBoard(chessMatch.getpieces());
 				System.out.println();
 				System.out.print("Source: ");
 				ChessPosition source = UI.readChessPosition(sc);
 				
+				boolean[][] possibleMoves = chessMatch.possibleMoves(source);
+				UI.clearScreaen();
+				UI.printBoard(chessMatch.getpieces(), possibleMoves);
 				System.out.println();
 				System.out.print("Target: ");
 				ChessPosition target = UI.readChessPosition(sc);
 				
-				ChessPiece capturedPiece = chessmatch.performChessMove(source, target);
+				ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
 			}
 			catch (ChessException e) {
 				System.out.println(e.getMessage());
@@ -37,12 +40,14 @@ public class Program {
 				System.out.println(e.getMessage());
 				sc.nextLine();
 			}
-
 		}
+	}
+		
+
 		
 		
 		
 
-	}
+	
 
 }
